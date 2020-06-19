@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tea.pj.sys.dao.SysRoleDao">
+    <select id="findObjects" resultType="com.tea.pj.sys.entity.SysRole">
+        select *
+        from sys_roles
+        <where>
+            <if test="name!=null and name!=''">
+                name like concat("%",#{name},"%")
+            </if>
+        </where>
+        limit #{startIndex},#{pageSize};
+    </select>
+    <select id="getRowCount" resultType="int">
+        select count(*)
+        from sys_roles
+        <where>
+            <if test="name!=null and name!=''">
+                name like concat("%",#{name},"%")
+            </if>
+        </where>
+    </select>
+    <delete id="deleteObject">
+        delete
+        from sys_roles
+        where id=#{id}
+    </delete>
+    <update id="updateObject" parameterType="com.tea.pj.sys.entity.SysRole">
+        update sys_roles
+        set
+        name=#{name},note=#{note},modifiedUser=#{modifiedUser},modifiedTime=now()
+        where id=#{id}
+    </update>
+    <select id="findObjectById" resultMap="sysRoleMenu">
+        select id,name,note
+        from sys_roles
+        where
+        id=#{id}
+    </select>
+    <insert id="insertObject" parameterType="com.tea.pj.sys.entity.SysRole" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_roles
+        (id,name,note,createdTime,modifiedTime,createdUser,modifiedUser)
+        values
+        (null,#{name},#{note},now(),now(),#{createdUser},#{modifiedUser})
+    </insert>
+    <resultMap type="com.tea.pj.common.bo.SysRoleMenu" id="sysRoleMenu">
+        <id property="id" column="id"/>
+        <collection property="menuIds" select="com.tea.pj.sys.dao.SysRoleMenuDao.findMenuIdsByRoleId" column="id">
+        </collection>
+    </resultMap>
+
+    <select id="findObjects01" resultType="com.tea.pj.common.bo.CheckBox">
+        select id,name
+        from sys_roles
+    </select>
+
+</mapper>

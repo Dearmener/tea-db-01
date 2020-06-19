@@ -1,0 +1,65 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="pageFragement">
+<ul class="pagination pagination-sm no-margin pull-right">
+    <li><a class="first">首页</a></li>
+	<li><a class="pre">上一页</a></li>
+	<li><a class="next">下一页</a></li>
+	<li><a class="last">尾页</a></li>
+	<li><a class="rowCount">总记录数(0)</a></li>
+	<li><a class="pageCount">总页数(0)</a></li>
+	<li><a class="pageCurrent">当前页(1)</a></li>
+</ul>
+<script type="text/javascript">
+	$(function () {
+		//当点击pageId对象内部的子元素时执行doJumpToPage
+		$("#pageId").on("click",".first,.pre,.next,.last",doJumpToPage);
+	})
+	function doSetPagination(PageObject){
+		//1.初始化总记录数
+		$(".rowCount").html("总记录数("+PageObject.rowCount+")");
+		//2.初始化总页数
+		$(".pageCount").html("总页数("+PageObject.pageCount+")");
+		//3.初始化当前页
+		$(".pageCurrent").html("当前页"+PageObject.pageCurrent);
+		//4.记录当前页码值和总页数
+		$("#pageId").data("pageCurrent",PageObject.pageCurrent)
+		$("#pageId").data("pageCount",PageObject.pageCount)
+	}
+
+	function doJumpToPage() {
+		//1.确定被点击的对象是谁
+		var cls = $(this).prop("class");
+		var pageCurrent=$("#pageId").data("pageCurrent");
+		var pageCount=$("#pageId").data("pageCount");
+		if(cls=="first"){
+			pageCurrent=1;
+		}else if (cls=="last"){
+			pageCurrent=pageCount;
+		}else if (cls=="pre"&&pageCurrent>1){
+			pageCurrent--;
+		}else if(cls=="next" && pageCurrent<pageCount){
+			pageCurrent++;
+		}else {
+			return;
+		}
+		$("#pageId").data("pageCurrent",pageCurrent);
+		doGetObjects();
+		//2.修改当前页码值
+		// console.log(prop)
+		//1).点击首页时当前页码值应该修改为1
+		//2).点击尾页时当前页码值应该为pageCount
+		//3).点击上一页时，假如当前页码值时大于1的则减一
+		//4).点击下一页时，假如当前页码值小于pageCount则加一
+		//3.基于新的页码值查询当前页数据并更新到页码上
+
+	}
+</script>
+</div>
+
+
+
+
+
+
+
+

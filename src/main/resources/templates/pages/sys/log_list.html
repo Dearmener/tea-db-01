@@ -1,0 +1,133 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">日志管理</h3>
+				<div class="box-tools">
+					<div class="input-group input-group-sm" style="width: 350px;">
+						<input type="text" name="table_search" id="searchNameId"
+							   class="form-control pull-right" placeholder="用户名">
+
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default btn-search">
+								<i class="fa fa-search"></i>
+							</button>
+							<button type="button" class="btn btn-default btn-delete">删除</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body table-responsive no-padding">
+				<table class="table table-hover">
+					<thead>
+					<tr>
+						<th><input type="checkbox" id="checkAll">全选</th>
+						<th>用户名</th>
+						<th>操作</th>
+						<th>请求方法</th>
+						<th>请求参数</th>
+						<th>IP</th>
+						<th>执行时长</th>
+					</tr>
+					</thead>
+					<tbody id="tbodyId">
+					<tr>
+						<td colspan="7">数据正在加载中...</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="pageId" class="box-footer clearfix" dm="100"
+				 th:include="common/page.html :: pageFragement">
+			</div>
+			<!-- /.box-body -->
+		</div>
+		<!-- /.box -->
+	</div>
+</div>
+<script type="text/javascript">
+	//页面加载完成调用方法
+	$(function () {
+		doGetObjects();
+	})
+
+
+	//通过此函数异步加载服务端的日志信息
+	function doGetObjects() {
+		//1.定义请求参数
+		var pageCurrent=$("#pageId").data("pageCurrent")
+		if(!pageCurrent)pageCurrent=1;
+		var params = "pageCurrent="+pageCurrent;
+		//2.定义请求url
+		var url = "log/doFindPageObjects";
+		//3.发送异步请求并处理响应结果
+		$.getJSON(url,params,function (result) {
+			doHandleQueryResult(result);
+		})
+	}
+
+	function doHandleQueryResult(result){
+		console.log("result",result);
+		if(result.state==1){//正常数据
+			//呈现当前页的日志记录信息更新到页面上
+			// console.log(result.data.records)
+			doSetTableBodyRows(result.data.records)
+			//将分页信息更新到页面上
+			doSetPagination(result.data)
+		}else {
+			alert(result.message)
+		}
+	}
+
+	function doSetTableBodyRows(records) {
+		//1.遍历tbody对象并清空内容
+		$("#tbodyId").html("");
+		//2.遍历recourds并将结果更新到页面上
+		/*
+		for(var i = 1 ;i <= group.length;i++){
+		var item = group[i-1]
+		groupTable.append('<tr> ' +
+		'<td class="tdClass">' + i + '</td>' +
+		'<td class="tdClass">' + item.name + '</td>' +
+		'<td class="tdClass">' + item.num + '</td>' +
+		'</tr>')
+}
+		 */
+		for (var i = 0;i<records.length;i++){
+			var tr = doCreateRow(records[i])
+			$("#tbodyId").append(
+					tr
+					// '<tr>'+
+					// '<td>'+'<input type="checkbox" value=${records[i].id}>'+'</td>'+
+					// '<td>'+records[i].username+'</td>'+
+					// '<td>'+records[i].operation+'</td>'+
+					// '<td>'+records[i].method+'</td>'+
+					// '<td>'+records[i].params+'</td>'+
+					// '<td>'+records[i].ip+'</td>'+
+					// '<td>'+records[i].time+'</td>'+
+					// '</tr>'
+			)
+		}
+	}
+
+	function doCreateRow(record){
+		return`<tr>
+				<td><input type="checkbox" value=${record.id}></td>
+				<td>${record.username}</td>
+				<td>${record.operation}</td>
+				<td>${record.method}</td>
+				<td>${record.params}</td>
+				<td>${record.ip}</td>
+				<td>${record.time}</td>
+			</tr>`
+	}
+
+</script>
+
+
+
+
+
+

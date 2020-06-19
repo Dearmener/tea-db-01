@@ -72,13 +72,13 @@ public class SysRoleController {
     }
 
     /**
-     * Auther: mengguoqing@gmail.com
+     * Auther: mengguoqing@gmail.com 0ggg-g
      * Date: 2020/6/18 3:03 下午
      * Method:  
      * Description:  查询sys_roles中的角色信息到添加页面上
      */
     @RequestMapping("doFindRoles")
-    public JsonResult doFindoles(){
+    public JsonResult doFindRoles(){
         return new JsonResult(sysRolesService.findObjects());
     }
 

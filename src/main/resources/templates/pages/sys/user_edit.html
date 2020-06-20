@@ -183,10 +183,12 @@
 	 })
  }
  function doInitFormData(){
+
      var data=$("#mainContentId").data("rowData");
      if(!data)return;
      $("#pwdDiv").remove();
 	 console.log(data);
+	 debugger
 	 //初始化用户信息 
 	 $("#usernameId").val(data.user.username);
 	 $("#deptId").val(data.user.sysDept?data.user.sysDept.name:'');

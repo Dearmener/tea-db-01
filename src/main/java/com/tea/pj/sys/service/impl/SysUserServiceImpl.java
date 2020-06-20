@@ -83,13 +83,7 @@ public class SysUserServiceImpl implements SysUserService {
         entity.setSalt(salt);
         entity.setPassword(sh.toHex());
         sysUserDao.insertObjects(entity);
-        System.out.println(entity.getUsername()+entity.getId()+ Arrays.toString(roleIds));
-        System.out.println(entity.getId());
-        System.out.println(roleIds);
-        Integer id = entity.getId();
-        SysUser sysUser = new SysUser();
-        sysUser.setId(id);
-        sysUserRoleDao.insertObjects(sysUser.getId(), roleIds);
+        sysUserRoleDao.insertObjects(entity.getId(), roleIds);
         return 0;
     }
 

@@ -34,7 +34,7 @@ public class LogTest {
     @Test
     public void testSysUserService(){
         PageObject<SysUser> po = userService.findPageObjects("admin",1);
-        System.out.println("rowCount"+po.getRowCount());
+        //System.out.println("rowCount"+po.getRowCount());
     }
 
 }

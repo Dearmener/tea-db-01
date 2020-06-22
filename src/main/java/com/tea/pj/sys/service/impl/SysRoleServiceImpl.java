@@ -6,7 +6,6 @@ import com.tea.pj.common.bo.SysRoleMenu;
 import com.tea.pj.common.exception.ServiceException;
 import com.tea.pj.sys.dao.SysRoleDao;
 import com.tea.pj.sys.dao.SysRoleMenuDao;
-import com.tea.pj.sys.dao.SysUserRoleDao;
 import com.tea.pj.sys.entity.SysRole;
 import com.tea.pj.sys.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +24,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Autowired
     private SysRoleMenuDao sysRoleMenuDao;
 
+    //@RequiredCache
     @Override
     public PageObject<SysRole> findObjects(String name, Integer pageCurrent) {
         if(pageCurrent==null || pageCurrent<1) throw new IllegalArgumentException("当前页码值无效");

@@ -14,5 +14,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)//定义注解何时有效  RetentionPolicy.RUNTIME为运行时有效
 @Target(ElementType.METHOD)
 public @interface RequiredCache {//最终编译成.class文件
-    String value() default "";
+    String key() default "";
 }

@@ -1,5 +1,6 @@
 package com.tea.pj.sys.service.impl;
 
+import com.tea.pj.common.aspect.RequiredCache;
 import com.tea.pj.common.exception.ServiceException;
 import com.tea.pj.sys.dao.SysDeptDao;
 import com.tea.pj.sys.entity.Node;
@@ -19,6 +20,8 @@ import java.util.Map;
 public class SysDeptServiceImpl implements SysDeptService {
     @Autowired
     private SysDeptDao sysDeptDao;
+
+    @RequiredCache
     @Override
     public List<Map<String, Object>> findObjects() {
         List<Map<String, Object>> list=

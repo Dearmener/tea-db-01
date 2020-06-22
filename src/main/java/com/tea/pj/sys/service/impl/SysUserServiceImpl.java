@@ -1,5 +1,6 @@
 package com.tea.pj.sys.service.impl;
 
+import com.tea.pj.common.aspect.RequiredCache;
 import com.tea.pj.common.bo.PageObject;
 import com.tea.pj.common.bo.SysUserDept;
 import com.tea.pj.common.exception.ServiceException;
@@ -35,6 +36,7 @@ public class SysUserServiceImpl implements SysUserService {
      * Description:
      *  查找数据
      */
+    @RequiredCache
     @Override
     public PageObject<SysUser> findPageObjects(String username, Integer pageCurrent) {
         if(pageCurrent==null || pageCurrent < 1) throw new IllegalArgumentException("当前页码值不合法");

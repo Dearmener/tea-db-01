@@ -27,7 +27,8 @@ public class SysUserController {
     @RequestMapping("doValidById")
     public JsonResult doValidById(Integer id,Integer valid){
         int i = sysUserService.validById(id, valid);
-        return new JsonResult("更新成功");
+        return new
+                JsonResult("更新成功");
     }
 
     /**

@@ -13,4 +13,4 @@ logging:
   level:
     com.tea: debug
 server:
-  port: 8020
+  port: 8080

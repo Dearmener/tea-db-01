@@ -8,6 +8,9 @@ import com.tea.pj.sys.entity.SysDepts;
 import com.tea.pj.sys.service.SysDeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -16,11 +19,21 @@ import java.util.Map;
 /**
  * creatd by mengguoqing on 2020/6/19 10:13 上午
  */
+@Transactional(
+        timeout = 60,
+        isolation = Isolation.READ_COMMITTED,
+        readOnly = false,
+        rollbackFor = Throwable.class,
+        propagation = Propagation.REQUIRED
+)
 @Service
 public class SysDeptServiceImpl implements SysDeptService {
     @Autowired
     private SysDeptDao sysDeptDao;
 
+    @Transactional(
+            readOnly = true
+    )
     @RequiredCache
     @Override
     public List<Map<String, Object>> findObjects() {

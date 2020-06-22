@@ -42,8 +42,4 @@ public class SysCacheAspect {
         mapCache.clear();
     }
 
-
-
-
-
 }

@@ -34,4 +34,14 @@ public class SysLogAspect {
         }
     }
 
+    public int add(){
+
+        return 0;
+    }
+
+    public void add(int args){
+
+    }
+
+
 }

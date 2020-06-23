@@ -1,4 +1,4 @@
-package com.tea.pj.common.aspect;
+package com.tea.pj.common.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

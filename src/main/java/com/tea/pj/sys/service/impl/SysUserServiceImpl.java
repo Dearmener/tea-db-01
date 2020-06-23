@@ -1,6 +1,6 @@
 package com.tea.pj.sys.service.impl;
 
-import com.tea.pj.common.aspect.RequiredCache;
+import com.tea.pj.common.annotation.RequiredCache;
 import com.tea.pj.common.bo.PageObject;
 import com.tea.pj.common.bo.SysUserDept;
 import com.tea.pj.common.exception.ServiceException;

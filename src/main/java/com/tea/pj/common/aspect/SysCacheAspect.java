@@ -20,10 +20,10 @@ public class SysCacheAspect {
     private DefaultMapCache mapCache;
 
     //由这个注解描述的方法为一个切入点方法
-    @Pointcut("@annotation(com.tea.pj.common.aspect.RequiredCache)")
+    @Pointcut("@annotation(com.tea.pj.common.annotation.RequiredCache)")
     public void doCache(){}
 
-    @Pointcut("@annotation(com.tea.pj.common.aspect.ClearCache)")
+    @Pointcut("@annotation(com.tea.pj.common.annotation.ClearCache)")
     public void doClear(){}
 
     @Around("doCache()")
